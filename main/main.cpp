@@ -15,6 +15,9 @@ int v=0;
 void app_main()
 {
     serial.begin(9600);
-    printf("Inicio");
+    while(1){
+        
+    printf("Inicio\n");
+    }
     
 }
