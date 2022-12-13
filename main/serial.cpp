@@ -14,27 +14,25 @@ void Serial::begin(int v)
 }
 char Serial::readChar(void)
 {
+	// isso aqui não funciona, ele fica lendo \n se chamar 2 vezes seguidas
 	int c;
 	while (getchar() != EOF)
 		vTaskDelay(pdMS_TO_TICKS(50)); // ticks para ms
 	c = EOF;
-	while (c == EOF)
-		c = getchar();
-	int d = getchar();
-	while(d=='\n')
-		d = getchar();
+	while (c == EOF); // espera receber um caractere
+	c = getchar();
 	return c;
 }
 void Serial::readString(uint8_t *buf, uint32_t l)
 {
 
 	int lidos = 0, c;
-	// while (getchar() != EOF)
-	// 	vTaskDelay(pdMS_TO_TICKS(50)); // ticks para ms
+	while (getchar() != EOF)
+		vTaskDelay(pdMS_TO_TICKS(50)); // ticks para ms
 	while (lidos < l)
 	{
 		c = getchar();
-		if (c != EOF && c!='\n')
+		if (c != EOF && c != '\n')
 		{
 			buf[lidos] = c;
 			lidos++;
