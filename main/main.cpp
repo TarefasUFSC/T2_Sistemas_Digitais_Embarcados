@@ -18,12 +18,17 @@ int v = 0;
 
 
 Sensor sensor = Sensor(PIN16, PIN5);
-
+void printLine(){
+    printf("--------------------------------------------------------------------------\n");
+}
 void printMenu(){
     
     printf(" \n");
+    printLine();
     printf("[1] - Ajusta set point\n");
     printf("[2] - Mede altura\n");
+    printf("Escolha uma opcao: \n");
+
 }
 
 void ajustaSetPoint()
@@ -82,11 +87,13 @@ void app_main()
         if (myMap.find(choice[0]) != myMap.end())
         {
             printf("choice: %c\n", choice[0]);
+            printLine();
             myMap[choice[0]]();
         }
         else
         {
             printf("Opcao invalida\n\n\n");
         }
+        printLine();
     }
 }
