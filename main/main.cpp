@@ -39,7 +39,7 @@ void ajustaSetPoint()
         printf("Digite o novo set point: ");
         char newSetPointStr[3];
         serial.readString((uint8_t *)newSetPointStr, 3);
-        int newSetPoint = atof(newSetPointStr);
+        int newSetPoint = atoi(newSetPointStr);
         printf("Novo set point: %d\n", newSetPoint);
         sensor.setupBaseHeight(newSetPoint);
     }

@@ -32,7 +32,7 @@ public:
 private:
     int getTimeDelta();
     int calculateDistance(int timeDelta);
-    void waitPulseChangeTo(int targetState);
+    void waitPulseChangeFrom(int targetState);
     void triggerMeasurement();
     int convertToBaseHeight(int distance);
 };

@@ -3,7 +3,7 @@
 #include "delay.h"
 #include <time.h>
 #include <sys/time.h>
-
+#include "serial.hpp"
 #include "esp_timer.h"
 #include "delay.h"
 #include <inttypes.h>
@@ -35,7 +35,7 @@ int Sensor::getTimeDelta()
     int t1 = esp_timer_get_time(); // pega o tempo atual em microsegundos
     int t2;
     int duracao = 0;
-    this->waitPulseChangeTo(LOW);
+    this->waitPulseChangeFrom(HIGH);
     t2 = esp_timer_get_time();
     duracao = (t2 - t1);
     return duracao;
@@ -46,9 +46,10 @@ int Sensor::calculateDistance(int timeDelta)
     distancia = ((timeDelta) / 2) / 29.1;
     return distancia;
 }
-void Sensor::waitPulseChangeTo(int targetState)
+void Sensor::waitPulseChangeFrom(int targetState)
 {
-    while (digital.digitalRead(this->echoPin) != targetState)
+    //printf("Waiting for pulse change from %d", targetState);
+    while (digital.digitalRead(this->echoPin) == targetState)
     {
     }
 }
@@ -62,22 +63,32 @@ int Sensor::convertToBaseHeight(int distance)
 {
     if (this->baseHeightSet)
     {
-        distance = distance - this->baseHeight;
+        distance = this->baseHeight - distance;
     }
     return distance;
 }
 int Sensor::getDistance()
 {
+    //printf("Getting distance");
+
+
     // envia um pulso de 10us no pino trig
+    //printf("Triggering measurement");
     this->triggerMeasurement();
-    this->waitPulseChangeTo(HIGH);
+
+    // espera o pino echo ficar em HIGH
+    //printf("Waiting for echo to go high");
+    this->waitPulseChangeFrom(LOW);
 
     // mede o tempo que o pino echo ficou em HIGH
-
+    //printf("Measuring time delta");
     int duracao = this->getTimeDelta();
 
     // calcula a distancia em cm
+    //printf("Calculating distance");
     int distancia = this->calculateDistance(duracao);
+    //printf("Distance: %d", distancia);
+
     distancia = this->convertToBaseHeight(distancia);
     return distancia;
 }
