@@ -40,7 +40,7 @@ void ajustaSetPoint()
     char choice[1];
     serial.readString((uint8_t *)choice, 1);
     if(choice[0] == 'S' || choice[0] == 's'){
-        printf("A distancia máxima é de 300cm\n");
+        printf("A distancia maxima e de 300cm\n");
         printf("Digite o novo set point: ");
         char newSetPointStr[3];
         serial.readString((uint8_t *)newSetPointStr, 3);
