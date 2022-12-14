@@ -19,22 +19,24 @@ char Serial::readChar(void)
 		vTaskDelay(pdMS_TO_TICKS(50)); // ticks para ms
 	c = EOF;
 	while (c == EOF)
+	{
 		c = getchar();
-	int d = getchar();
-	while(d=='\n')
-		d = getchar();
+
+		vTaskDelay(pdMS_TO_TICKS(50)); // ticks para ms
+	}
+
 	return c;
 }
 void Serial::readString(uint8_t *buf, uint32_t l)
 {
 
 	int lidos = 0, c;
-	// while (getchar() != EOF)
-	// 	vTaskDelay(pdMS_TO_TICKS(50)); // ticks para ms
+	while (getchar() != EOF)
+		vTaskDelay(pdMS_TO_TICKS(50)); // ticks para ms
 	while (lidos < l)
 	{
 		c = getchar();
-		if (c != EOF && c!='\n')
+		if (c != EOF && c != '\n')
 		{
 			buf[lidos] = c;
 			lidos++;
