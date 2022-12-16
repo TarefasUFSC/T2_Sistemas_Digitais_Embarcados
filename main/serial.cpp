@@ -21,7 +21,7 @@ char Serial::readChar(void)
 	while (c == EOF)
 		c = getchar();
 	int d = getchar();
-	while(d=='\n')
+	while (d == '\n')
 		d = getchar();
 	return c;
 }
@@ -34,7 +34,7 @@ void Serial::readString(uint8_t *buf, uint32_t l)
 	while (lidos < l)
 	{
 		c = getchar();
-		if (c != EOF && c!='\n')
+		if (c != EOF && c != '\n')
 		{
 			buf[lidos] = c;
 			lidos++;

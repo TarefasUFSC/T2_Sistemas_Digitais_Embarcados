@@ -7,12 +7,12 @@
 #include "driver/gpio.h"
 #include "driver/uart.h"
 
-class Serial {
-    public:
-        void begin(int v);
-        void readString( uint8_t *buf, uint32_t length);
-        char readChar(void);
-
+class Serial
+{
+public:
+    void begin(int v);
+    void readString(uint8_t *buf, uint32_t length);
+    char readChar(void);
 };
 
 extern Serial serial;
