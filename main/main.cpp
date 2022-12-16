@@ -25,7 +25,8 @@ void app_main(){
   while (1){
     printf("----------MENU----------\n");
     printf("[1] Ajusta set point\n");
-    printf("[2] Mede altura pessoal\n");
+    printf("[2] Mede altura\n");
+    printf("[3] Auto set point\n");
     printf("----------------------------\n");
 
     char input = serial.readChar();
@@ -38,6 +39,9 @@ void app_main(){
     }
     else if(input == '2'){
       ultrasom.medeAltura();
+    }
+    else if(input == '3'){
+      ultrasom.AutoSetPoint();
     }
     else{
       printf("Opcao invalida\n");

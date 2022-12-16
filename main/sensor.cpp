@@ -31,3 +31,18 @@ void Sensor::medeAltura(void){
     int distancia = setPoint - ((fim - inicio) / 2 * 0.0343);
     printf("Distancia: %i \n", distancia);
 }
+
+void Sensor::AutoSetPoint(){
+    int64_t inicio = 0, fim = 0;
+    digital.digitalWrite(this->trigger, HIGH);
+    delay_us(20);
+    digital.digitalWrite(this->trigger, LOW);
+
+    while (digital.digitalRead(this->echo) == 0){} //espera o sinal de eco
+    inicio = esp_timer_get_time(); //marca o tempo de inicio
+    while (digital.digitalRead(this->echo) == 1){} //espera o sinal de eco
+    fim = esp_timer_get_time(); //marca o tempo de fim
+
+    this->setPoint = (fim - inicio) / 2 * 0.0343; //calcula a distancia
+    printf("Novo Set point: %i \n", this->setPoint);
+}

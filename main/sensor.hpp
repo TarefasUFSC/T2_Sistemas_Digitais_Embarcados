@@ -13,6 +13,7 @@ public:
     Sensor(gpio_num_t, gpio_num_t);
     void getPoint(int x);
     void medeAltura(void);
+    void AutoSetPoint(void);
 };
 
 #endif
