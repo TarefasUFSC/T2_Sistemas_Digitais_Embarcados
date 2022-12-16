@@ -43,7 +43,16 @@ int Sensor::getTimeDelta()
 int Sensor::calculateDistance(int timeDelta)
 {
     int distancia;
-    distancia = ((timeDelta) / 2) / 29.1;
+    // velocidade do som = 340 m/s
+    // velocidade do som = 34000 cm/s
+    // velocidade do som = 34000 cm/1000000 us
+    // velocidade do som = 0.034 cm/us
+    // distancia = velocidade * tempo
+
+    // formas distinta de calcular a distancia
+    // distancia = 0.034 * tempo / 2
+    // distancia = tempo / 29.1 / 2
+    distancia = timeDelta * 0.034 / 2;
     return distancia;
 }
 void Sensor::waitPulseChangeFrom(int targetState)
